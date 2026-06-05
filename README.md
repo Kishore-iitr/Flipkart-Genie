@@ -1,15 +1,15 @@
-# Flipkart Genie 🧞‍♂️
+# Flipkart Genie
 
 An AI-powered shopping assistant designed to completely redefine how users shop for general products and groceries. Built with **Next.js 15**, **Tailwind CSS**, **LangChain**, and powered by the **OpenRouter API**.
 
-## ✨ Features
+## Features
 - **Flipkart Genie**: A conversational AI shopping assistant that can answer queries, understand complex requests, and recommend the best products for your needs.
 - **Grocery Genie**: A specialized agent that can extract ingredients from recipes, estimate quantities, suggest substitutions, and build your entire grocery cart in seconds.
 - **Vector Search Engine**: Powered by an in-memory SQLite database and cosine similarity to match user intents perfectly with products.
 - **Dynamic Shopping Cart**: Manage standard items and grocery items concurrently with a beautiful, fast checkout UI.
 - **Client-side LLM Key Management**: No need to mess with `.env` files if you don't want to!
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Installation
 Clone the repository and install dependencies using your preferred package manager:
@@ -41,15 +41,15 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-## 🛠 Tech Stack
+## Tech Stack
 - **Framework**: Next.js 15 (App Router, Turbopack)
 - **Styling**: Tailwind CSS, Framer Motion for animations
 - **State Management**: Zustand
 - **AI / LLM Orchestration**: LangChain, LangGraph
 - **Database (Mock)**: SQLite in-memory for vector searches
 
-## 🤝 Contributing
+## Contributing
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Kishore-iitr/Flipkart-Genie/issues).
 
-## 📝 License
+## License
 This project is open-source and available under the [MIT License](LICENSE).
