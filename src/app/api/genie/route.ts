@@ -6,7 +6,7 @@ import { GenieState } from "@/ai/state/genie-state";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, cart, conversationId } = body;
+    const { messages, cart, conversationId, apiKey } = body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
@@ -42,7 +42,8 @@ export async function POST(req: Request) {
       missingInformation: [],
       recommendedProducts: [],
       retrievedProducts: [],
-      groceryBasket: []
+      groceryBasket: [],
+      apiKey
     };
 
     const finalState = await appGraph.invoke(initialState, {

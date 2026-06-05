@@ -12,7 +12,7 @@ const analyzerSchema = z.object({
 });
 
 export async function analyzerNode(state: GenieState): Promise<Partial<GenieState>> {
-  const structuredLlm = await getStructuredLLM(analyzerSchema);
+  const structuredLlm = await getStructuredLLM(analyzerSchema, state.apiKey);
 
   const systemMessage = `You are an expert shopping assistant analyzer. 
 Extract the user's intent, specific product constraints, and budget from their query.

@@ -11,6 +11,7 @@ import { ReasoningPanel } from "./ReasoningPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Loader2 } from "lucide-react";
+import { useSettingsStore } from "@/store/settingsStore";
 
 interface GenieChatProps {
   open?: boolean;
@@ -47,6 +48,8 @@ export default function GenieChat({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, products, cart]);
 
+  const { openrouterApiKey } = useSettingsStore();
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
     
@@ -65,7 +68,13 @@ export default function GenieChat({
       const res = await fetch("/api/genie", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg.content, conversationId }),
+        body: JSON.stringify({ 
+          message: userMsg.content, 
+          messages: [...messages, userMsg],
+          cart,
+          conversationId,
+          apiKey: openrouterApiKey 
+        }),
       });
       
       const data = await res.json();

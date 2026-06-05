@@ -54,7 +54,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
               className="col-span-3"
             />
             <p className="text-xs text-slate-500">
-              This key is stored securely in your browser cookies and is only sent to the local server.
+              This key is stored securely in your browser's local storage and is sent to the backend when chatting.
             </p>
           </div>
         </div>

@@ -14,7 +14,7 @@ const generatorSchema = z.object({
 });
 
 export async function generatorNode(state: GenieState): Promise<Partial<GenieState>> {
-  const structuredLlm = await getStructuredLLM(generatorSchema);
+  const structuredLlm = await getStructuredLLM(generatorSchema, state.apiKey);
 
   const productList = state.filteredProducts.map(p => 
     `- ID: ${p.id} | ${p.title} | $${p.price} | ${p.category}\n  Desc: ${p.description.substring(0, 150)}...`

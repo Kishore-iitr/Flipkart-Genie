@@ -9,10 +9,10 @@ const schema = z.object({
   }))
 });
 
-export async function estimateQuantities(ingredients: string[], servings: number) {
+export async function estimateQuantities(ingredients: string[], servings: number, apiKey?: string) {
   if (ingredients.length === 0) return [];
 
-  const llm = await getStructuredLLM(schema);
+  const llm = await getStructuredLLM(schema, apiKey);
   
   const systemMessage = `You are an expert culinary AI. 
 Estimate the required quantities for the following ingredients for ${servings} servings.

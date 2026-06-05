@@ -11,11 +11,11 @@ export async function groceryNode(state: GenieState): Promise<Partial<GenieState
   const constraints = state.constraints || [];
 
   // 1. Extract ingredients
-  const extracted = await extractIngredients(query, constraints);
+  const extracted = await extractIngredients(query, constraints, state.apiKey);
   reasoning += `Extracted ${extracted.ingredients.length} core ingredients for ${extracted.recipeName}. `;
 
   // 2. Estimate quantities
-  const estimations = await estimateQuantities(extracted.ingredients, extracted.servings);
+  const estimations = await estimateQuantities(extracted.ingredients, extracted.servings, state.apiKey);
   reasoning += "Estimated quantities based on servings. ";
 
   // 3. Check availability & 4. Substitutions
@@ -26,7 +26,7 @@ export async function groceryNode(state: GenieState): Promise<Partial<GenieState
     
     if (!match || match.stock === 0) {
       reasoning += `${est.ingredient} is unavailable, looking for a substitute... `;
-      match = await findSubstitute(est.ingredient, constraints);
+      match = await findSubstitute(est.ingredient, constraints, state.apiKey);
     }
 
     if (match) {

@@ -23,6 +23,7 @@ export interface GenieState {
   reasoning: string;
   finalResponse: string;
   rewriteCount: number;
+  apiKey?: string;
 }
 
 export const genieStateChannels: StateGraphArgs<GenieState>["channels"] = {
@@ -105,5 +106,9 @@ export const genieStateChannels: StateGraphArgs<GenieState>["channels"] = {
   rewriteCount: {
     value: (x: number, y: number) => y ?? x,
     default: () => 0,
+  },
+  apiKey: {
+    value: (x: string | undefined, y: string | undefined) => y ?? x,
+    default: () => undefined,
   }
 };

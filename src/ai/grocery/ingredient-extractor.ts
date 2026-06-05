@@ -7,8 +7,8 @@ const schema = z.object({
   servings: z.number().describe("The estimated number of servings requested, default to 2 if not specified")
 });
 
-export async function extractIngredients(query: string, constraints: string[] = []) {
-  const llm = await getStructuredLLM(schema);
+export async function extractIngredients(query: string, constraints: string[] = [], apiKey?: string) {
+  const llm = await getStructuredLLM(schema, apiKey);
   
   const systemMessage = `You are an expert culinary AI. 
 Given a user's food request, extract the fundamental ingredients required.

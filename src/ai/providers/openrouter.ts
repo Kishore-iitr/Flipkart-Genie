@@ -1,10 +1,8 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatOllama } from "@langchain/ollama";
-import { cookies } from "next/headers";
 
-export async function getLLM(fallback = false) {
-  const cookieStore = await cookies();
-  const apiKey = cookieStore.get('OPENROUTER_API_KEY')?.value || process.env.OPENROUTER_API_KEY;
+export async function getLLM(providedApiKey?: string, fallback = false) {
+  const apiKey = providedApiKey || process.env.OPENROUTER_API_KEY;
   const useOpenRouter = process.env.USE_OPENROUTER === "true" || !!apiKey;
 
   if (useOpenRouter && apiKey) {
@@ -27,9 +25,8 @@ export async function getLLM(fallback = false) {
   }
 }
 
-export async function getStructuredLLM(schema: any, fallback = false) {
-  const cookieStore = await cookies();
-  const apiKey = cookieStore.get('OPENROUTER_API_KEY')?.value || process.env.OPENROUTER_API_KEY;
+export async function getStructuredLLM(schema: any, providedApiKey?: string, fallback = false) {
+  const apiKey = providedApiKey || process.env.OPENROUTER_API_KEY;
   const useOpenRouter = process.env.USE_OPENROUTER === "true" || !!apiKey;
 
   if (useOpenRouter && apiKey) {

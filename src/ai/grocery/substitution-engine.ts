@@ -9,9 +9,10 @@ const schema = z.object({
 
 export async function findSubstitute(
   missingIngredient: string, 
-  constraints: string[] = []
+  constraints: string[] = [],
+  apiKey?: string
 ): Promise<GroceryProduct | null> {
-  const llm = await getStructuredLLM(schema);
+  const llm = await getStructuredLLM(schema, apiKey);
   
   const systemMessage = `You are an expert culinary AI. 
 The ingredient "${missingIngredient}" is unavailable or doesn't meet constraints: ${constraints.join(", ")}.
