@@ -9,7 +9,7 @@ interface SettingsState {
 export const useSettingsStore = create<SettingsState>((set) => ({
   openrouterApiKey: Cookies.get('OPENROUTER_API_KEY') || '',
   setOpenrouterApiKey: (key) => {
-    Cookies.set('OPENROUTER_API_KEY', key, { expires: 365 }); // Save for 1 year
+    Cookies.set('OPENROUTER_API_KEY', key, { expires: 365, path: '/' }); // Save for 1 year, available everywhere
     set({ openrouterApiKey: key });
   },
 }));

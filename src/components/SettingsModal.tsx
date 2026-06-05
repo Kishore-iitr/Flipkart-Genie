@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,12 @@ interface SettingsModalProps {
 export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { openrouterApiKey, setOpenrouterApiKey } = useSettingsStore();
   const [apiKey, setApiKey] = useState(openrouterApiKey);
+
+  useEffect(() => {
+    if (open) {
+      setApiKey(useSettingsStore.getState().openrouterApiKey);
+    }
+  }, [open]);
 
   const handleSave = () => {
     setOpenrouterApiKey(apiKey.trim());
