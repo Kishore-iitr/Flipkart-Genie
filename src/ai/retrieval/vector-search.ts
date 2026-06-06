@@ -57,10 +57,34 @@ export async function searchProducts(query: string, limit: number = 20): Promise
     // Sort by descending score
     scoredProducts.sort((a, b) => b.score - a.score);
 
-    // Return top N products (filter out irrelevant ones if score is too low, but for now just return top N)
+    // Return top N products
     return scoredProducts.slice(0, limit).map(p => p.product);
   } catch (error) {
-    console.error("Local vector search failed:", error);
-    return [];
+    console.error("Local vector search failed, falling back to text search:", error);
+    
+    // Fallback: simple text match
+    try {
+      const stmt = db.prepare("SELECT * FROM products");
+      const allProducts = stmt.all() as any[];
+      const terms = query.toLowerCase().split(' ').filter(t => t.length > 2);
+      
+      const scoredProducts = allProducts.map(product => {
+        let score = 0;
+        const textToSearch = `${product.title} ${product.description} ${product.category}`.toLowerCase();
+        for (const term of terms) {
+          if (textToSearch.includes(term)) {
+            score += 1;
+          }
+        }
+        return { product, score };
+      });
+      
+      scoredProducts.sort((a, b) => b.score - a.score);
+      // Return top N products that have at least some match
+      return scoredProducts.filter(p => p.score > 0).slice(0, limit).map(p => p.product as Product);
+    } catch (fallbackError) {
+      console.error("Fallback search also failed:", fallbackError);
+      return [];
+    }
   }
 }
